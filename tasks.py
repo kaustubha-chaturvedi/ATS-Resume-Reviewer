@@ -21,7 +21,7 @@ def get_tasks(llm, job_desire, resume_content):
 
         description=f'Resume Content: {resume_content} \n Analyse the resume provided and the report of job_requirements_researcher to provide a detailed SWOT analysis report on the resume along with the Resume Match Percentage and Suggestions to improve',
         expected_output="""A Markdown formatted report as follows:
-            # Resume Review Report for {candidate}
+            # Resume Review Report
             ## Strengths:
             - {strengths}
             ## Weaknesses:
