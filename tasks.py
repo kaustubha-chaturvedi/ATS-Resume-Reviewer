@@ -2,7 +2,7 @@
 from crewai import Task
 from agents import get_agents
 
-def get_tasks(llm, job_desire, resume_content):
+def get_tasks(llm, job_desc, resume_content):
     '''
     job_requirements_research - Find the relevant skills, projects and experience
     resume_swot_analysis- understand the report and the resume based on this make a swot analysis
@@ -12,7 +12,7 @@ def get_tasks(llm, job_desire, resume_content):
 
     research = Task(
 
-        description=f'For Job Position of Desire: {job_desire} research to identify the current market requirements for a person at the job including the relevant skills, some unique research projects or common projects along with what experience would be required. For searching query use ACTION INPUT KEY as "search_query"',
+        description=f'For Job Position of Desire: {job_desc} research to identify the current market requirements for a person at the job including the relevant skills, some unique research projects or common projects along with what experience would be required. For searching query use ACTION INPUT KEY as "search_query"',
         expected_output='A report on what are the skills required and some unique real time projects that can be there which enhances the chance of a person to get a job',
         agent=job_requirements_researcher
     )

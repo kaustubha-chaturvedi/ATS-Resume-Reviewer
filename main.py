@@ -25,11 +25,11 @@ class JobStatus(BaseModel):
     result: str = None
 
 @app.post("/upload/")
-async def upload_and_process_resume(background_tasks: BackgroundTasks, job_desire: str = Form(...), file: UploadFile = File(...)):
+async def upload_and_process_resume(background_tasks: BackgroundTasks, job_desc: str = Form(...), file: UploadFile = File(...)):
     job_id = str(uuid.uuid4())
     jobs[job_id] = JobStatus(status="processing")
     
-    background_tasks.add_task(run_analysis, job_id, job_desire, file)
+    background_tasks.add_task(run_analysis, job_id, job_desc, file)
     
     return {"job_id": job_id}
 
@@ -40,7 +40,7 @@ async def job_status(job_id: str):
     else:
         return JSONResponse(status_code=404, content={"message": "Job not found"})
 
-def run_analysis(job_id: str, job_desire: str, file: UploadFile):
+def run_analysis(job_id: str, job_desc: str, file: UploadFile):
     print(f"Processing job {job_id}")
     try:
         # Load the llm
@@ -51,7 +51,7 @@ def run_analysis(job_id: str, job_desire: str, file: UploadFile):
 
         # Creating agents and tasks
         job_requirements_researcher, resume_swot_analyser = get_agents(llm)
-        research, resume_swot_analysis = get_tasks(llm, job_desire, resume)
+        research, resume_swot_analysis = get_tasks(llm, job_desc, resume)
 
         # Building crew and kicking it off
         crew = Crew(
