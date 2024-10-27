@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
+import { PdfProvider } from "../../context/pdfContext";
 
 const qs = Quicksand({ subsets: ["latin"] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark h-screen w-screen">
-      <body className={`${qs.className} h-screen`}>{children}</body>
+      <PdfProvider>
+        <body className={`${qs.className} h-screen`}>{children}</body>
+      </PdfProvider>
     </html>
   );
 }
